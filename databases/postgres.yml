@@ -75,9 +75,15 @@ spec:
         - containerPort: 5432
         env:
           - name: POSTGRES_USER
-            value: "postgres"
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: db_username
           - name: POSTGRES_PASSWORD
-            value: "postgres"
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: db_password
       volumes:
       - name: postgres-data
         persistentVolumeClaim:
